@@ -18,9 +18,9 @@ if (process.env.NODE_ENV === 'production') {
   await esbuild.build({
     entryPoints: ['src/index.ts'],
     bundle: true,
-    globalName: 'JBrowsePluginProtein3d',
+    globalName: 'JBrowsePluginGraphGenomeViewer',
     sourcemap: true,
-    outfile: 'dist/jbrowse-plugin-protein3d.umd.production.min.js',
+    outfile: 'dist/jbrowse-plugin-graphgenomeviewer.umd.production.min.js',
     metafile: true,
     minify: true,
     plugins: [
@@ -55,7 +55,7 @@ if (process.env.NODE_ENV === 'production') {
   let ctx = await esbuild.context({
     entryPoints: ['src/index.ts'],
     bundle: true,
-    globalName: 'JBrowsePluginProtein3d',
+    globalName: 'JBrowsePluginGraphGenomeViewer',
     outfile: 'dist/out.js',
     metafile: true,
     plugins: [
@@ -88,7 +88,7 @@ if (process.env.NODE_ENV === 'production') {
   })
   let { host, port } = await ctx.serve({
     servedir: '.',
-    port: 9001,
+    port: 9002,
     host: 'localhost',
   })
   const formattedHost = host === '127.0.0.1' ? 'localhost' : host

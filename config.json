@@ -1,8 +1,8 @@
 {
   "plugins": [
     {
-      "name": "Protein3d",
-      "url": "http://localhost:9001/dist/out.js"
+      "name": "GraphGenomeViewer",
+      "url": "http://localhost:9002/dist/out.js"
     }
   ],
   "assemblies": [
