@@ -1,13 +1,10 @@
 import Plugin from '@jbrowse/core/Plugin'
 import PluginManager from '@jbrowse/core/PluginManager'
-
-// locals
 import { AbstractSessionModel, isAbstractMenuManager } from '@jbrowse/core/util'
 import HubIcon from '@mui/icons-material/Hub'
 
 import { version } from '../package.json'
 import GraphGenomeViewF from './GraphGenomeView'
-import LaunchGraphGenomeViewF from './LaunchGraphGenomeView'
 
 export default class GraphGenomeViewer extends Plugin {
   name = 'GraphGenomeViewer'
@@ -15,7 +12,6 @@ export default class GraphGenomeViewer extends Plugin {
 
   install(pluginManager: PluginManager) {
     GraphGenomeViewF(pluginManager)
-    LaunchGraphGenomeViewF(pluginManager)
   }
 
   configure(pluginManager: PluginManager) {
