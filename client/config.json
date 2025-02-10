@@ -2,7 +2,7 @@
   "plugins": [
     {
       "name": "GraphGenomeViewer",
-      "url": "http://localhost:9002/dist/out.js"
+      "url": "http://localhost:9000/dist/out.js"
     }
   ],
   "assemblies": [
