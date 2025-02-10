@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "name": "sequencetubemap-server",
+  "license": "MIT",
+  "dependencies": {
+    "compression": "^1.7.5",
+    "dotenv": "^16.4.7",
+    "es-dirname": "^0.1.0",
+    "express": "^4.21.2",
+    "fs-extra": "^11.3.0",
+    "multer": "^1.4.5-lts.1",
+    "node-cron": "^3.0.3",
+    "path-is-inside": "^1.0.2",
+    "readers-writer-lock": "^1.0.0",
+    "sanitize-filename": "^1.6.3",
+    "uuid": "^11.0.5",
+    "websocket": "^1.0.35"
+  }
+}
