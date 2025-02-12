@@ -6,6 +6,7 @@ import { addDisposer, types } from 'mobx-state-tree'
 import { myfetchtext } from './util'
 
 import type { Instance } from 'mobx-state-tree'
+import graphSettingsModelFactory from './graphSettingsModel'
 
 export default function stateModelFactory() {
   return types.compose(
@@ -35,6 +36,10 @@ export default function stateModelFactory() {
          * #property
          */
         serverRoot: '',
+        /**
+         * #property
+         */
+        graphSettings: types.optional(graphSettingsModelFactory(), {}),
       })
       .volatile(() => ({
         /**
