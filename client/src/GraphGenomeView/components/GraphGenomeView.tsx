@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import { parseLocString } from '@jbrowse/core/util'
-import { Button, TextField } from '@mui/material'
-import { GFAGraph, Graph } from 'graphgenomeviewer'
+import { ErrorMessage } from '@jbrowse/core/ui'
 import { observer } from 'mobx-react'
 
-import FeatureDialog from './FeatureDialog'
+import GraphPanel from './GraphPanel'
+import Header from './Header'
 
 import type { GraphGenomeViewModel } from '../model'
 
@@ -14,60 +13,18 @@ const GraphGenomeView = observer(function ({
 }: {
   model: GraphGenomeViewModel
 }) {
-  const { graph } = model
-  const [val, setVal] = useState('GRCh38#chr21:1000-2000')
-
-  const [featureData, setFeatureData] = useState<Record<string, unknown>>()
+  const { error } = model
   return (
     <div
       style={{
         padding: 10,
       }}
     >
-      {featureData ? (
-        <FeatureDialog
-          data={featureData}
-          onClose={() => {
-            setFeatureData(undefined)
-          }}
-        />
-      ) : null}
+      <Header model={model} />
       <div>
-        <form
-          onSubmit={event => {
-            event.preventDefault()
-
-            const ret = parseLocString(val, arg => {
-              return !arg.includes(':')
-            })
-            model.setLocation(
-              `http://localhost:3003/?graph=chr21.vg&chr=${encodeURIComponent(ret.refName)}&start=${ret.start}&end=${ret.end}`,
-            )
-          }}
-        >
-          <TextField
-            type="text"
-            variant="outlined"
-            size="small"
-            value={val}
-            style={{ minWidth: 500 }}
-            onChange={event => {
-              setVal(event.target.value)
-            }}
-          />
-          <Button variant="contained" type="submit">
-            Submit
-          </Button>
-        </form>
+        {error ? <ErrorMessage error={error} /> : null}
+        <GraphPanel model={model} />
       </div>
-      {location ? (
-        <Graph
-          graph={graph}
-          onFeatureClick={data => {
-            setFeatureData(data)
-          }}
-        />
-      ) : null}
     </div>
   )
 })

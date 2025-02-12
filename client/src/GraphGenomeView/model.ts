@@ -5,7 +5,6 @@ import { addDisposer, types } from 'mobx-state-tree'
 
 import { myfetchtext } from './util'
 
-import type { FileLocation } from '@jbrowse/core/util'
 import type { Instance } from 'mobx-state-tree'
 
 export default function stateModelFactory() {
@@ -28,6 +27,10 @@ export default function stateModelFactory() {
          * #property
          */
         gfaUrl: types.maybe(types.string),
+        /**
+         * #property
+         */
+        mode: 'files',
       })
       .volatile(() => ({
         /**
@@ -51,6 +54,12 @@ export default function stateModelFactory() {
         /**
          * #action
          */
+        setMode(arg: string) {
+          self.mode = arg
+        },
+        /**
+         * #action
+         */
         setError(arg: unknown) {
           self.error = arg
         },
@@ -63,18 +72,14 @@ export default function stateModelFactory() {
         /**
          * #action
          */
-        genomicRegionLocString(arg: string) {
+        setGenomicRegionLocString(arg: string) {
           self.genomicRegionLocString = arg
         },
         /**
          * #action
          */
-        setGfaFileLocation(file: FileLocation) {
-          if ('uri' in file && file.uri) {
-            self.gfaUrl = file.uri
-          } else {
-            console.log('wtf')
-          }
+        setGfaUrl(url: string) {
+          self.gfaUrl = url
         },
       }))
       .actions(self => ({
