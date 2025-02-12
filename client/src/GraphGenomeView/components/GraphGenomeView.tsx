@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { parseLocString } from '@jbrowse/core/util'
 import { Button, TextField } from '@mui/material'
-import { GFAGraph } from 'graphgenomeviewer'
+import { GFAGraph, Graph } from 'graphgenomeviewer'
 import { observer } from 'mobx-react'
 
 import FeatureDialog from './FeatureDialog'
@@ -14,7 +14,7 @@ const GraphGenomeView = observer(function ({
 }: {
   model: GraphGenomeViewModel
 }) {
-  const { location } = model
+  const { graph } = model
   const [val, setVal] = useState('GRCh38#chr21:1000-2000')
 
   const [featureData, setFeatureData] = useState<Record<string, unknown>>()
@@ -61,8 +61,8 @@ const GraphGenomeView = observer(function ({
         </form>
       </div>
       {location ? (
-        <GFAGraph
-          url={location}
+        <Graph
+          graph={graph}
           onFeatureClick={data => {
             setFeatureData(data)
           }}
