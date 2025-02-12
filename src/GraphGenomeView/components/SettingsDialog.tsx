@@ -108,7 +108,7 @@ const SettingsDialog = observer(function ({
                     setTmpLinkSteps(val as number)
                   }}
                 />
-                Current value: {linkSteps}
+                Current value: {tmpLinkSteps}
               </div>
             </div>
             <div>
@@ -150,7 +150,7 @@ const SettingsDialog = observer(function ({
                     setTmpStrengthCenter(val as number)
                   }}
                 />
-                Current value: {strengthCenter}
+                Current value: {tmpStrengthCenter}
               </div>
             </div>
             <div>
@@ -166,7 +166,7 @@ const SettingsDialog = observer(function ({
                     setTmpSequenceThickness(val as number)
                   }}
                 />
-                Current value: {sequenceThickness}px
+                Current value: {tmpSequenceThickness}px
               </div>
             </div>
             <div>
@@ -182,7 +182,7 @@ const SettingsDialog = observer(function ({
                     setTmpLinkThickness(val as number)
                   }}
                 />
-                Current value: {linkThickness}px
+                Current value: {tmpLinkThickness}px
               </div>
             </div>
           </div>
