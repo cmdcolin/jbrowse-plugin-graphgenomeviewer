@@ -8,7 +8,13 @@ import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
   {
-    ignores: ['**/dist/**/*', 'eslint.config.mjs', 'esbuild.mjs', 'server/*'],
+    ignores: [
+      '**/dist/**/*',
+      'eslint.config.mjs',
+      'esbuild.mjs',
+      'simpleVgServer/*',
+      'sequenceTubeMapServer/*',
+    ],
   },
   {
     languageOptions: {

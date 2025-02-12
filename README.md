@@ -8,10 +8,14 @@ WIP for displaying graph genome as a view in JBrowse 2
 
 ## Concept
 
-The code adds a small server component which can read a .vg file, and a genomic
-region, and then it will use the `vg chunk` command to extract the region into a
-web based bandage-like graph genome viewer
-https://github.com/cmdcolin/graphgenomeviewer
+The code adds:
+
+- a simple file selector for the user to open .gfa files to display alognside
+  the genome browser (these are meant to be locus-specific smallish GFA, not
+  full assembly graphs)
+- alternatively, can configure a "GFA server" which will use the `vg chunk`
+  command to extract the region into a web based bandage-like graph genome
+  viewer https://github.com/cmdcolin/graphgenomeviewer
 
 ## Thanks
 
@@ -22,7 +26,6 @@ toolkit commands and concepts https://github.com/StableGenomics/PangPAG
 
 Shortlist of TODOs
 
-- Allow users to load their own vg files. Currently hardcodes chr21 from HPRC
 - Easier navigation between the linear genome view and graph genome panel
 - Ability to launch a synteny-style view from the graph
 - Ability to use decompose graph into VCF track
