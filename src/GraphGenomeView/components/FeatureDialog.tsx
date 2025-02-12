@@ -1,6 +1,8 @@
 import React from 'react'
 
 import { Dialog } from '@jbrowse/core/ui'
+// @ts-expect-error
+import { Attributes } from '@jbrowse/core/BaseFeatureWidget/BaseFeatureDetail'
 
 export default function FeatureDialog({
   data,
@@ -10,42 +12,10 @@ export default function FeatureDialog({
   onClose: () => void
 }) {
   return (
-    <Dialog open title="Feature details" onClose={onClose}>
-      <div>Attributes</div>
-      {Object.entries(data)
-        .filter(
-          entry => !['source', 'target', 'linkNum', 'tags'].includes(entry[0]),
-        )
-        .map(([key, value]) => (
-          <div
-            key={`${key}_${value}`}
-            style={{ display: 'flex', maxHeight: 150, margin: 3 }}
-          >
-            <div style={{ backgroundColor: '#dda', minWidth: 100 }}>{key}</div>
-            <div style={{ wordBreak: 'break-word', overflow: 'auto' }}>
-              {String(value)}
-            </div>
-          </div>
-        ))}
-      <hr />
-      {data.tags && Object.keys(data.tags).length > 0 ? (
-        <>
-          <div>Tags</div>
-          {Object.entries(data.tags).map(([key, value]) => (
-            <div
-              key={`${key}_${value}`}
-              style={{ display: 'flex', maxHeight: 150, margin: 3 }}
-            >
-              <div style={{ backgroundColor: '#dda', minWidth: 100 }}>
-                {key}
-              </div>
-              <div style={{ wordBreak: 'break-word', overflow: 'auto' }}>
-                {String(value)}
-              </div>
-            </div>
-          ))}
-        </>
-      ) : null}
+    <Dialog open maxWidth="xl" title="Feature details" onClose={onClose}>
+      <div style={{ minWidth: 800 }}>
+        <Attributes attributes={data} omit={['sequence']} />
+      </div>
     </Dialog>
   )
 }

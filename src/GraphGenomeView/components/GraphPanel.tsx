@@ -26,6 +26,7 @@ const GraphPanel = observer(function ({
       ) : null}
       <Graph
         graph={graph}
+        chunkSize={20000}
         onFeatureClick={data => {
           setFeatureData(data)
         }}
