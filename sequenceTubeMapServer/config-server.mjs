@@ -15,7 +15,7 @@ import dirname from 'es-dirname'
 // it to turn on its own ability to parse that "experimental" syntax.
 //
 // And the React setup prohibits you from setting the flag (unless you eject
-// and take on the maintainance burden of all changes to react-scripts, or else
+// and take on the maintenance burden of all changes to react-scripts, or else
 // you install one of the modules dedicated to hacking around this).
 //
 // We could go back to require for this, but then we'd have to say import.meta

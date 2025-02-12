@@ -50,7 +50,7 @@ if (process.env.NODE_ENV !== 'production') {
 function find_vg() {
   if (find_vg.found_vg !== null) {
     // Cache the answer and don't re-check all the time.
-    // Nobody shoudl be deleting vg.
+    // Nobody should be deleting vg.
     return find_vg.found_vg
   }
   for (let prefix of config.vgPath) {
@@ -139,7 +139,7 @@ const lockTypes = {
 
 // In memory storage of fetched file eTags
 // Used to check if the file has been updated and we need to fetch again
-// Stores urls mapped to the eTag from the most recently recieved request
+// Stores urls mapped to the eTag from the most recently received request
 const ETagMap = new Map()
 
 // Make sure that the scratch directory exists at startup, so multiple requests
@@ -221,7 +221,7 @@ function deleteExpiredFiles(directoryPath) {
   })
 }
 
-// takes in an async function, locks the direcotry for the duration of the function
+// takes in an async function, locks the directory for the duration of the function
 async function lockDirectory(directoryPath, lockType, func) {
   console.log('Acquiring', lockType, 'for', directoryPath)
   // look into lockMap to see if there is a lock assigned to the directory
@@ -244,7 +244,7 @@ async function lockDirectory(directoryPath, lockType, func) {
   }
 }
 
-// expects an array of directory paths, attemping to acquire all directory locks
+// expects an array of directory paths, attempting to acquire all directory locks
 // all uses of this function requires the array of directoryPaths to be in the same order
 // e.g locking [DOWNLOAD_DATA_PATH, UPLOAD_DATA_PATH] should always lock DOWNLOAD_DATA_PATH first to prevent deadlock
 async function lockDirectories(directoryPaths, lockType, func) {
@@ -269,7 +269,7 @@ async function lockDirectories(directoryPaths, lockType, func) {
 // deletes any files in the download directory past the set fileExpirationTime set in config
 cron.schedule('0 * * * *', async () => {
   console.log('cron scheduled check')
-  // attempt to acquire a write lock for each on the directory before attemping to delete files
+  // attempt to acquire a write lock for each on the directory before attempting to delete files
   for (const dir of [DOWNLOAD_DATA_PATH, UPLOAD_DATA_PATH]) {
     try {
       await lockDirectory(dir, lockTypes.WRITE_LOCK, async function () {
@@ -636,7 +636,7 @@ async function getChunkedData(req, res, next) {
     // See if we need to ignore haplotypes in gbz graph file
 
     if (req.withGbwt) {
-      //either push gbz with graph and haplotype or push seperate graph and gbwt file
+      //either push gbz with graph and haplotype or push separate graph and gbwt file
       if (
         graphFile.endsWith('.gbz') &&
         gbwtFile.endsWith('.gbz') &&
@@ -707,7 +707,7 @@ async function getChunkedData(req, res, next) {
       vgChunkParams.push('-g')
     }
 
-    // to seach by node ID use "node" for the sequence name, e.g. 'node:1-10'
+    // to search by node ID use "node" for the sequence name, e.g. 'node:1-10'
     if (parsedRegion.contig === 'node') {
       if (parsedRegion.distance !== undefined) {
         // Start and distance of node IDs, so send that idiomatically.
@@ -1134,7 +1134,7 @@ function bedChunkLocalPath(bed, chunk) {
   }
 }
 
-// Gets the chunk name from a region specifed in a bedfile
+// Gets the chunk name from a region specified in a bedfile
 // Returns an empty string if the region is not found within the bed file
 async function getChunkName(bed, parsedRegion) {
   let chunk = ''
@@ -1502,7 +1502,7 @@ function isAllowedPath(inputPath) {
     // Prohibit double delimiters (probably mostly from internal errors)
     return false
   }
-  // Split on delimeters
+  // Split on delimiters
   let parts = inputPath.split(/[\/\\]/)
   for (let part of parts) {
     if (part === '..') {
@@ -1872,14 +1872,14 @@ const retrieveChunk = async (bedURL, chunk, includeContent) => {
     if (fileName !== sanitize(fileName)) {
       // Make sure we don't do things like get out of the directory.
       throw new BadRequestError(
-        `Chunk index at ${chunkContentURL} cointains disallowed filename ${fileName}`,
+        `Chunk index at ${chunkContentURL} contains disallowed filename ${fileName}`,
       )
     }
 
     // We can interpret all the files in chunk_contents.txt relative to the file they are listed in.
     let chunkFileURL = new URL(fileName, chunkContentURL).toString()
 
-    // download only the tracks.json file if the inlcudeContent flag is false
+    // download only the tracks.json file if the includeContent flag is false
     if (includeContent || fileName == 'tracks.json') {
       let chunkFilePath = path.resolve(chunkDir, fileName)
       await downloadFile(chunkFileURL, chunkFilePath)
@@ -1907,7 +1907,7 @@ async function getChunkTracks(bedFile, chunk) {
   let chunkPath = bedChunkLocalPath(bedFile, chunk)
   let track_json = path.resolve(chunkPath, 'tracks.json')
   let tracks = null
-  // Attempt to read tracks.json and covnert it into a tracks object
+  // Attempt to read tracks.json and convert it into a tracks object
   if (fs.existsSync(track_json)) {
     // Create string of tracks data
     const string_data = fs.readFileSync(track_json)
@@ -1960,7 +1960,7 @@ api.post('/getBedRegions', (req, res, next) => {
 })
 
 // Load up the given BED file by URL or path, and
-// return a data structure decribing all the pre-cached regions it defines.
+// return a data structure describing all the pre-cached regions it defines.
 // Validates file paths for user-accessibility. May throw.
 async function getBedRegions(bed) {
   let bed_info = {
@@ -1974,11 +1974,11 @@ async function getBedRegions(bed) {
   let bed_data
   let lines
   let isURL = false
-  console.log('bed file recieved ', bed)
+  console.log('bed file received ', bed)
   if (isValidURL(bed)) {
     isURL = true
-    const reponse = await fetchAndValidate(bed, config.maxFileSizeBytes)
-    bed_data = await reponse.text()
+    const response = await fetchAndValidate(bed, config.maxFileSizeBytes)
+    bed_data = await response.text()
   } else {
     // otherwise search for bed file in dataPath
     if (!bed.endsWith('.bed')) {
