@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { FileSelector } from '@jbrowse/core/ui'
 import { FileLocation, getSession } from '@jbrowse/core/util'
 import { openLocation } from '@jbrowse/core/util/io'
-import { Button, IconButton, TextField } from '@mui/material'
+import { IconButton } from '@mui/material'
 import { observer } from 'mobx-react'
 
 import { Settings } from '@mui/icons-material'
@@ -11,10 +11,10 @@ import { Settings } from '@mui/icons-material'
 import SettingsDialog from './SettingsDialog'
 
 import type { GraphGenomeViewModel } from '../model'
+import LocStringInput from './LocStringInput'
 
 const Header = observer(function ({ model }: { model: GraphGenomeViewModel }) {
   const { mode } = model
-  const [val, setVal] = useState('GRCh38#chr21:1000-2000')
   const [loc, setLoc] = useState<FileLocation>()
   useEffect(() => {
     if (!loc) {
@@ -50,22 +50,7 @@ const Header = observer(function ({ model }: { model: GraphGenomeViewModel }) {
           />
         </div>
       ) : (
-        <div>
-          <TextField
-            type="text"
-            variant="outlined"
-            margin="normal"
-            size="small"
-            value={val}
-            style={{ minWidth: 500 }}
-            onChange={event => {
-              setVal(event.target.value)
-            }}
-          />
-          <Button variant="contained" type="submit">
-            Submit
-          </Button>
-        </div>
+        <LocStringInput model={model} />
       )}
       <div style={{ flexGrow: 1 }} />
       <div>

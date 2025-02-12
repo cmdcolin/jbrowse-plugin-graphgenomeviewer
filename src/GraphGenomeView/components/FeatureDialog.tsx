@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Dialog } from '@jbrowse/core/ui'
-// @ts-expect-error
+// @ts-expect-error this will need to eventually get updated...mismatched in core
 import { Attributes } from '@jbrowse/core/BaseFeatureWidget/BaseFeatureDetail'
 
 export default function FeatureDialog({

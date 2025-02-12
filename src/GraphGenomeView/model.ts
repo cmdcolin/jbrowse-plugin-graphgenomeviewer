@@ -21,7 +21,7 @@ export default function stateModelFactory() {
         /**
          * #property
          */
-        genomicRegionLocString: types.maybe(types.string),
+        locstring: types.maybe(types.string),
 
         /**
          * #property
@@ -31,6 +31,10 @@ export default function stateModelFactory() {
          * #property
          */
         mode: 'files',
+        /**
+         * #property
+         */
+        serverRoot: '',
       })
       .volatile(() => ({
         /**
@@ -54,6 +58,12 @@ export default function stateModelFactory() {
         /**
          * #action
          */
+        setServerRoot(arg: string) {
+          self.serverRoot = arg
+        },
+        /**
+         * #action
+         */
         setMode(arg: string) {
           self.mode = arg
         },
@@ -73,7 +83,7 @@ export default function stateModelFactory() {
          * #action
          */
         setGenomicRegionLocString(arg: string) {
-          self.genomicRegionLocString = arg
+          self.locstring = arg
         },
         /**
          * #action

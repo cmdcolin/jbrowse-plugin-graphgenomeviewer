@@ -9,6 +9,7 @@ import {
   FormControlLabel,
   Radio,
   RadioGroup,
+  TextField,
 } from '@mui/material'
 import { observer } from 'mobx-react'
 
@@ -21,7 +22,7 @@ const SettingsDialog = observer(function ({
   model: GraphGenomeViewModel
   handleClose: () => void
 }) {
-  const { mode } = model
+  const { mode, serverRoot } = model
   return (
     <Dialog open maxWidth="xl" title="Settings" onClose={handleClose}>
       <DialogContent style={{ minWidth: 800 }}>
@@ -44,6 +45,17 @@ const SettingsDialog = observer(function ({
             />
           </RadioGroup>
         </FormControl>
+        {mode === 'server' ? (
+          <div>
+            <div>Server settings:</div>
+            <TextField
+              label="Path to the simpleGfaServer e.g. http://localhost:9000/"
+              style={{ minWidth: 500 }}
+              value={serverRoot}
+              onChange={event => model.setServerRoot(event.target.value)}
+            />
+          </div>
+        ) : null}
       </DialogContent>
       <DialogActions>
         <Button
