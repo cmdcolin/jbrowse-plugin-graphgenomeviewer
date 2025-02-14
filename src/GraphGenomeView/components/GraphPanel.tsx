@@ -26,16 +26,22 @@ const GraphPanel = observer(function ({
           }}
         />
       ) : null}
-      <Graph
-        graph={graph}
-        chunkSize={chunkSize}
-        linkSteps={linkSteps}
-        sequenceThickness={sequenceThickness}
-        linkThickness={linkThickness}
-        onFeatureClick={data => {
-          setFeatureData(data)
+      <div
+        ref={ref => {
+          model.setRef(ref)
         }}
-      />
+      >
+        <Graph
+          graph={graph}
+          chunkSize={chunkSize}
+          linkSteps={linkSteps}
+          sequenceThickness={sequenceThickness}
+          linkThickness={linkThickness}
+          onFeatureClick={data => {
+            setFeatureData(data)
+          }}
+        />
+      </div>
     </>
   ) : null
 })

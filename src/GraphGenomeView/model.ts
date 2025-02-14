@@ -2,6 +2,7 @@ import { BaseViewModel } from '@jbrowse/core/pluggableElementTypes'
 import { parseGFA } from 'graphgenomeviewer'
 import { autorun } from 'mobx'
 import { addDisposer, types } from 'mobx-state-tree'
+import { saveAs } from 'file-saver'
 
 import { myfetchtext } from './util'
 
@@ -50,6 +51,11 @@ export default function stateModelFactory() {
          * #volatile
          */
         error: undefined as unknown,
+
+        /**
+         * #volatile
+         */
+        ref: null as HTMLDivElement | null,
       }))
       .views(self => ({
         /**
@@ -58,8 +64,34 @@ export default function stateModelFactory() {
         get graph() {
           return self.resultData ? parseGFA(self.resultData) : undefined
         },
+        /**
+         * #getter
+         */
+        menuItems() {
+          return [
+            {
+              label: 'Export SVG',
+              onClick: () => {
+                if (self.ref) {
+                  saveAs(
+                    new Blob([self.ref.innerHTML || ''], {
+                      type: 'image/svg+xml',
+                    }),
+                    'out.svg',
+                  )
+                }
+              },
+            },
+          ]
+        },
       }))
       .actions(self => ({
+        /**
+         * #action
+         */
+        setRef(ref: HTMLDivElement | null) {
+          self.ref = ref
+        },
         /**
          * #action
          */

@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@mui/icons-material": "^6.4.1",
+    "file-saver": "^2.0.5",
     "graphgenomeviewer": "^5.0.4"
   },
   "devDependencies": {
