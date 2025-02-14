@@ -41,6 +41,10 @@ export default function stateModelFactory() {
          * #property
          */
         graphSettings: types.optional(graphSettingsModelFactory(), {}),
+        /**
+         * #property
+         */
+        height: 100,
       })
       .volatile(() => ({
         /**
@@ -57,6 +61,28 @@ export default function stateModelFactory() {
          */
         ref: null as HTMLDivElement | null,
       }))
+      .actions(self => ({
+        /**
+         * #action
+         */
+        setHeight(n: number) {
+          self.height = n
+          return n
+        },
+        /**
+         * #action
+         */
+        exportSVG() {
+          if (self.ref) {
+            saveAs(
+              new Blob([self.ref.innerHTML || ''], {
+                type: 'image/svg+xml',
+              }),
+              'out.svg',
+            )
+          }
+        },
+      }))
       .views(self => ({
         /**
          * #getter
@@ -72,14 +98,7 @@ export default function stateModelFactory() {
             {
               label: 'Export SVG',
               onClick: () => {
-                if (self.ref) {
-                  saveAs(
-                    new Blob([self.ref.innerHTML || ''], {
-                      type: 'image/svg+xml',
-                    }),
-                    'out.svg',
-                  )
-                }
+                self.exportSVG()
               },
             },
           ]

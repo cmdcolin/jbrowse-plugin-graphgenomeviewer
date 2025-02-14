@@ -13,8 +13,16 @@ const GraphPanel = observer(function ({
   model: GraphGenomeViewModel
 }) {
   const { graph, graphSettings } = model
-  const { chunkSize, linkSteps, linkThickness, sequenceThickness } =
-    graphSettings
+  const {
+    chunkSize,
+    colorScheme,
+    linkSteps,
+    linkThickness,
+    sequenceThickness,
+    drawPaths,
+    drawLabels,
+    drawNodeHandles,
+  } = graphSettings
   const [featureData, setFeatureData] = useState<Record<string, unknown>>()
   return graph ? (
     <>
@@ -37,6 +45,10 @@ const GraphPanel = observer(function ({
           linkSteps={linkSteps}
           sequenceThickness={sequenceThickness}
           linkThickness={linkThickness}
+          colorScheme={colorScheme}
+          drawLabels={drawLabels}
+          drawNodeHandles={drawNodeHandles}
+          drawPaths={drawPaths}
           onFeatureClick={data => {
             setFeatureData(data)
           }}

@@ -24,11 +24,16 @@ const defaultSettings = {
   drawPaths: false,
   drawNodeHandles: false,
   drawLabels: false,
+  colorScheme: 'Rainbow',
 }
 
 export default function graphSettingsModelFactory() {
   return types
     .model({
+      colorScheme: types.optional(
+        types.string,
+        getStoredSetting('colorScheme', defaultSettings.colorScheme),
+      ),
       chunkSize: types.optional(
         types.number,
         getStoredSetting('chunkSize', defaultSettings.chunkSize),
@@ -83,6 +88,9 @@ export default function graphSettingsModelFactory() {
       setLinkThickness(thickness: number) {
         self.linkThickness = thickness
       },
+      setColorScheme(s: string) {
+        self.colorScheme = s
+      },
       setSequenceThickness(thickness: number) {
         self.sequenceThickness = thickness
       },
@@ -108,7 +116,6 @@ export default function graphSettingsModelFactory() {
       afterCreate() {
         const saveSetting = (key: string, value: unknown) => {
           try {
-            localStorage.setItem(STORAGE_PREFIX + key, JSON.stringify(value))
           } catch (e) {
             console.warn(`Failed to save setting ${key} to localStorage:`, e)
           }
@@ -117,7 +124,7 @@ export default function graphSettingsModelFactory() {
         addDisposer(
           self,
           autorun(() => {
-            const settings = [
+            for (const [key, value] of [
               ['chunkSize', self.chunkSize],
               ['strengthCenter', self.strengthCenter],
               ['linkThickness', self.linkThickness],
@@ -128,9 +135,7 @@ export default function graphSettingsModelFactory() {
               ['drawPaths', self.drawPaths],
               ['drawNodeHandles', self.drawNodeHandles],
               ['drawLabels', self.drawLabels],
-            ] as const
-
-            for (const [key, value] of settings) {
+            ] as const) {
               saveSetting(key, value)
             }
           }),
