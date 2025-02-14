@@ -24,11 +24,11 @@ export default function stateModelFactory() {
          * #property
          */
         locstring: types.maybe(types.string),
-
         /**
          * #property
          */
         gfaUrl: types.maybe(types.string),
+
         /**
          * #property
          */
@@ -44,13 +44,13 @@ export default function stateModelFactory() {
         /**
          * #property
          */
-        height: 100,
+        height: 400,
+        /**
+         * #property
+         */
+        resultData: types.maybe(types.string),
       })
       .volatile(() => ({
-        /**
-         * #volatile
-         */
-        resultData: undefined as string | undefined,
         /**
          * #volatile
          */
@@ -168,7 +168,18 @@ export default function stateModelFactory() {
             }),
           )
         },
-      })),
+      }))
+      .preProcessSnapshot(snap => {
+        if (
+          snap.gfaUrl ||
+          (snap.resultData && snap.resultData.length > 1_000_000)
+        ) {
+          const { resultData, ...rest } = snap
+          return rest
+        } else {
+          return snap
+        }
+      }),
   )
 }
 

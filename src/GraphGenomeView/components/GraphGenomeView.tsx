@@ -9,27 +9,27 @@ import Header from './Header'
 
 import type { GraphGenomeViewModel } from '../model'
 
-const useStyles = makeStyles()(theme => ({
+const useStyles = makeStyles()({
   resizeHandle: {
     height: 4,
     background: '#ccc',
     boxSizing: 'border-box',
     borderTop: '1px solid #fafafa',
+    zIndex: 100,
   },
-}))
+})
 const GraphGenomeView = observer(function ({
   model,
 }: {
   model: GraphGenomeViewModel
 }) {
-  const { height, error } = model
+  const { height, error, graph } = model
   const { classes } = useStyles()
   return (
     <div>
       <div
         style={{
           padding: 10,
-          height,
         }}
       >
         <Header model={model} />
@@ -38,10 +38,12 @@ const GraphGenomeView = observer(function ({
           <GraphPanel model={model} />
         </div>
       </div>
-      <ResizeHandle
-        onDrag={n => model.setHeight(model.height + n)}
-        className={classes.resizeHandle}
-      />
+      {graph ? (
+        <ResizeHandle
+          onDrag={n => model.setHeight(height + n)}
+          className={classes.resizeHandle}
+        />
+      ) : null}
     </div>
   )
 })

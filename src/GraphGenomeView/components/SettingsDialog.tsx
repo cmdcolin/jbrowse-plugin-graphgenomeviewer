@@ -43,7 +43,7 @@ const SettingsDialog = observer(function ({
   const [tmpLinkThickness, setTmpLinkThickness] = useState(linkThickness)
   return (
     <Dialog open maxWidth="xl" title="Settings" onClose={handleClose}>
-      <DialogContent style={{ maxWidth: 500 }}>
+      <DialogContent style={{ minWidth: 800 }}>
         <Tabs
           value={tabValue}
           onChange={(_event, newValue) => setTabValue(newValue)}
@@ -83,6 +83,22 @@ const SettingsDialog = observer(function ({
                   value={serverRoot}
                   onChange={event => model.setServerRoot(event.target.value)}
                 />
+                <div>
+                  <Typography variant="h6">What is the GFA server?</Typography>
+                  <div>
+                    It is a server that runs vg commands on pre-configured .vg
+                    graph files. It requires a server side setup to use, please
+                    see{' '}
+                    <a href="https://github.com/cmdcolin/jbrowse-plugin-graphgenomeviewer/">
+                      here
+                    </a>{' '}
+                    for details
+                  </div>
+                  <div>
+                    The alternative way to use this plugin is to run these vg
+                    commands yourself, and open the raw GFA files
+                  </div>
+                </div>
               </div>
             ) : null}
           </>

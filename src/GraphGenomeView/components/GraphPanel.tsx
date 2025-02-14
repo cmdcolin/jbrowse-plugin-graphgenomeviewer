@@ -12,7 +12,7 @@ const GraphPanel = observer(function ({
 }: {
   model: GraphGenomeViewModel
 }) {
-  const { graph, graphSettings } = model
+  const { graph, height, graphSettings } = model
   const {
     chunkSize,
     colorScheme,
@@ -25,7 +25,7 @@ const GraphPanel = observer(function ({
   } = graphSettings
   const [featureData, setFeatureData] = useState<Record<string, unknown>>()
   return graph ? (
-    <>
+    <div>
       {featureData ? (
         <FeatureDialog
           data={featureData}
@@ -34,6 +34,7 @@ const GraphPanel = observer(function ({
           }}
         />
       ) : null}
+
       <div
         ref={ref => {
           model.setRef(ref)
@@ -41,6 +42,7 @@ const GraphPanel = observer(function ({
       >
         <Graph
           graph={graph}
+          height={height}
           chunkSize={chunkSize}
           linkSteps={linkSteps}
           sequenceThickness={sequenceThickness}
@@ -54,7 +56,7 @@ const GraphPanel = observer(function ({
           }}
         />
       </div>
-    </>
+    </div>
   ) : null
 })
 
