@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from 'react'
 
 import { FileSelector } from '@jbrowse/core/ui'
-import CascadingMenuButton from '@jbrowse/core/ui/CascadingMenuButton'
 import { FileLocation, getSession } from '@jbrowse/core/util'
 import { openLocation } from '@jbrowse/core/util/io'
 import { observer } from 'mobx-react'
-import MenuIcon from '@mui/icons-material/Menu'
 
-import { Settings } from '@mui/icons-material'
-
-import SettingsDialog from './SettingsDialog'
 import AreYouSureDialog from './AreYouSureDialog'
 
 import type { GraphGenomeViewModel } from '../model'
 import LocStringInput from './LocStringInput'
+import HeaderMenu from './HeaderMenu'
 
 const Header = observer(function ({ model }: { model: GraphGenomeViewModel }) {
-  const { mode, graphSettings } = model
-  const { colorScheme, drawPaths, drawLabels } = graphSettings
+  const { mode } = model
   const [loc, setLoc] = useState<FileLocation>()
   useEffect(() => {
     if (!loc) {
@@ -56,66 +51,7 @@ const Header = observer(function ({ model }: { model: GraphGenomeViewModel }) {
   })
   return (
     <div style={{ display: 'flex', gap: 40 }}>
-      <CascadingMenuButton
-        menuItems={[
-          {
-            label: 'Draw labels',
-            type: 'checkbox',
-            checked: drawLabels,
-            onClick: () => graphSettings.setDrawLabels(!drawLabels),
-          },
-          {
-            label: 'Draw paths',
-            type: 'checkbox',
-            checked: drawPaths,
-            onClick: () => graphSettings.setDrawPaths(!drawPaths),
-          },
-          {
-            label: 'Draw node handles',
-            type: 'checkbox',
-            checked: drawPaths,
-            onClick: () => graphSettings.setDrawPaths(!drawPaths),
-          },
-
-          {
-            label: 'Color scheme',
-            subMenu: [
-              'JustGrey',
-              'Turbo',
-              'Rainbow',
-              'Spectral',
-              'Viridis',
-              'RdYlBu',
-            ].map(r => ({
-              label: r,
-              type: 'radio',
-              checked: colorScheme === r,
-              onClick: () => graphSettings.setColorScheme(r),
-            })),
-          },
-          {
-            label: 'Export SVG',
-            onClick: () => {
-              model.exportSVG()
-            },
-          },
-          {
-            label: 'Settings',
-            icon: Settings,
-            onClick: () => {
-              getSession(model).queueDialog(handleClose => [
-                SettingsDialog,
-                {
-                  handleClose,
-                  model,
-                },
-              ])
-            },
-          },
-        ]}
-      >
-        <MenuIcon />
-      </CascadingMenuButton>
+      <HeaderMenu model={model} />
 
       {mode === 'files' ? (
         <div style={{ maxWidth: 500 }}>

@@ -60,8 +60,18 @@ export default function stateModelFactory() {
          * #volatile
          */
         ref: null as HTMLDivElement | null,
+        /**
+         * #volatile
+         */
+        redrawCounter: 0,
       }))
       .actions(self => ({
+        /**
+         * #action
+         */
+        redraw() {
+          self.redrawCounter += 1
+        },
         /**
          * #action
          */

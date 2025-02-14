@@ -12,7 +12,7 @@ const GraphPanel = observer(function ({
 }: {
   model: GraphGenomeViewModel
 }) {
-  const { graph, height, graphSettings } = model
+  const { graph, height, graphSettings, resultData, redrawCounter } = model
   const {
     chunkSize,
     colorScheme,
@@ -29,6 +29,7 @@ const GraphPanel = observer(function ({
       {featureData ? (
         <FeatureDialog
           data={featureData}
+          model={model}
           onClose={() => {
             setFeatureData(undefined)
           }}
@@ -41,6 +42,7 @@ const GraphPanel = observer(function ({
         }}
       >
         <Graph
+          key={resultData + '-' + redrawCounter + '-' + chunkSize}
           graph={graph}
           height={height}
           chunkSize={chunkSize}
