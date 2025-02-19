@@ -12,6 +12,13 @@ function getStoredSetting<T>(key: string, defaultValue: T): T {
     return defaultValue
   }
 }
+function saveSetting(key: string, value: unknown) {
+  try {
+    localStorage.setItem(STORAGE_PREFIX + key, JSON.stringify(value))
+  } catch (e) {
+    console.warn(`Failed to save setting ${key} to localStorage:`, e)
+  }
+}
 
 const defaultSettings = {
   chunkSize: 1000,
@@ -114,13 +121,6 @@ export default function graphSettingsModelFactory() {
       },
 
       afterCreate() {
-        const saveSetting = (key: string, value: unknown) => {
-          try {
-          } catch (e) {
-            console.warn(`Failed to save setting ${key} to localStorage:`, e)
-          }
-        }
-
         addDisposer(
           self,
           autorun(() => {

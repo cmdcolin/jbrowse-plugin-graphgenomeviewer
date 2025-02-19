@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { Dialog } from '@jbrowse/core/ui'
-
-// @ts-expect-error this will need to eventually get updated...mismatched in core
+// @ts-expect-error
 import { Attributes } from '@jbrowse/core/BaseFeatureWidget/BaseFeatureDetail'
-import { DialogContent } from '@mui/material'
+import { Dialog } from '@jbrowse/core/ui'
 import { getEnv } from '@jbrowse/core/util'
+import { DialogContent } from '@mui/material'
+
 import { GraphGenomeViewModel } from '../model'
 
 export default function FeatureDialog({

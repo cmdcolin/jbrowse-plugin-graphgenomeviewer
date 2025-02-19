@@ -12,7 +12,7 @@ export default tseslint.config(
       '**/dist/**/*',
       'eslint.config.mjs',
       'esbuild.mjs',
-      'simpleVgServer/*',
+      'simpleGfaServer/*',
       'sequenceTubeMapServer/*',
     ],
   },
@@ -53,6 +53,7 @@ export default tseslint.config(
   {
     rules: {
       'no-empty': 'off',
+      'prefer-template': 'error',
       'no-console': [
         'warn',
         {

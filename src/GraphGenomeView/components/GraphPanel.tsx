@@ -42,7 +42,7 @@ const GraphPanel = observer(function ({
         }}
       >
         <Graph
-          key={resultData + '-' + redrawCounter + '-' + chunkSize}
+          key={`${resultData}-${redrawCounter}-${chunkSize}`}
           graph={graph}
           height={height}
           chunkSize={chunkSize}

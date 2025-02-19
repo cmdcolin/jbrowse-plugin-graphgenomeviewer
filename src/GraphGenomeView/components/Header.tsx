@@ -6,10 +6,10 @@ import { openLocation } from '@jbrowse/core/util/io'
 import { observer } from 'mobx-react'
 
 import AreYouSureDialog from './AreYouSureDialog'
+import HeaderMenu from './HeaderMenu'
+import LocStringInput from './LocStringInput'
 
 import type { GraphGenomeViewModel } from '../model'
-import LocStringInput from './LocStringInput'
-import HeaderMenu from './HeaderMenu'
 
 const Header = observer(function ({ model }: { model: GraphGenomeViewModel }) {
   const { mode } = model
@@ -24,10 +24,10 @@ const Header = observer(function ({ model }: { model: GraphGenomeViewModel }) {
         model.setError(undefined)
         const data = await openLocation(loc).readFile('utf8')
         if (data.length > 5_000_000) {
-          getSession(self).queueDialog(handleClose => [
+          getSession(globalThis).queueDialog(handleClose => [
             AreYouSureDialog,
             {
-              handleClose: arg => {
+              handleClose: (arg: boolean) => {
                 if (arg) {
                   if ('uri' in loc) {
                     model.setGfaUrl(loc.uri)

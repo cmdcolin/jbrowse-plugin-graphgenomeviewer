@@ -2,8 +2,8 @@ import React from 'react'
 
 import CascadingMenuButton from '@jbrowse/core/ui/CascadingMenuButton'
 import { getSession } from '@jbrowse/core/util'
-import { observer } from 'mobx-react'
 import MenuIcon from '@mui/icons-material/Menu'
+import { observer } from 'mobx-react'
 
 import { Settings } from '@mui/icons-material'
 
@@ -25,19 +25,25 @@ const HeaderMenu = observer(function ({
           label: 'Draw labels',
           type: 'checkbox',
           checked: drawLabels,
-          onClick: () => graphSettings.setDrawLabels(!drawLabels),
+          onClick: () => {
+            graphSettings.setDrawLabels(!drawLabels)
+          },
         },
         {
           label: 'Draw paths',
           type: 'checkbox',
           checked: drawPaths,
-          onClick: () => graphSettings.setDrawPaths(!drawPaths),
+          onClick: () => {
+            graphSettings.setDrawPaths(!drawPaths)
+          },
         },
         {
           label: 'Draw node handles',
           type: 'checkbox',
           checked: drawNodeHandles,
-          onClick: () => graphSettings.setDrawNodeHandles(!drawNodeHandles),
+          onClick: () => {
+            graphSettings.setDrawNodeHandles(!drawNodeHandles)
+          },
         },
         {
           label: 'Force redraw',
@@ -58,7 +64,9 @@ const HeaderMenu = observer(function ({
             label: r,
             type: 'radio',
             checked: colorScheme === r,
-            onClick: () => graphSettings.setColorScheme(r),
+            onClick: () => {
+              graphSettings.setColorScheme(r)
+            },
           })),
         },
         {

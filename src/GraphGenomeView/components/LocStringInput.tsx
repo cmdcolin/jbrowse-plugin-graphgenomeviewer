@@ -1,12 +1,14 @@
 import React from 'react'
 
+import { getSession } from '@jbrowse/core/util'
 import { Button, IconButton, TextField } from '@mui/material'
 import { observer } from 'mobx-react'
 
-import type { GraphGenomeViewModel } from '../model'
 import { Help } from '@mui/icons-material'
-import { getSession } from '@jbrowse/core/util'
+
 import HelpDialog from './HelpDialog'
+
+import type { GraphGenomeViewModel } from '../model'
 
 const LocStringInput = observer(function LocStringInput({
   model,

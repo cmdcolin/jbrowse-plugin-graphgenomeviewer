@@ -1,13 +1,13 @@
 import { BaseViewModel } from '@jbrowse/core/pluggableElementTypes'
+import { saveAs } from 'file-saver'
 import { parseGFA } from 'graphgenomeviewer'
 import { autorun } from 'mobx'
 import { addDisposer, types } from 'mobx-state-tree'
-import { saveAs } from 'file-saver'
 
+import graphSettingsModelFactory from './graphSettingsModel'
 import { myfetchtext } from './util'
 
 import type { Instance } from 'mobx-state-tree'
-import graphSettingsModelFactory from './graphSettingsModel'
 
 export default function stateModelFactory() {
   return types.compose(

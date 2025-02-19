@@ -9,13 +9,13 @@ import {
   FormControlLabel,
   Radio,
   RadioGroup,
-  Slider,
   Tab,
   Tabs,
-  TextField,
-  Typography,
 } from '@mui/material'
 import { observer } from 'mobx-react'
+
+import GraphSettings from './GraphSettings'
+import ServerSettings from './ServerSettings'
 
 import type { GraphGenomeViewModel } from '../model'
 
@@ -26,7 +26,7 @@ const SettingsDialog = observer(function ({
   model: GraphGenomeViewModel
   handleClose: () => void
 }) {
-  const { mode, graphSettings, serverRoot } = model
+  const { mode, graphSettings } = model
   const [tabValue, setTabValue] = useState(0)
   const {
     chunkSize,
@@ -46,14 +46,15 @@ const SettingsDialog = observer(function ({
       <DialogContent style={{ minWidth: 800 }}>
         <Tabs
           value={tabValue}
-          onChange={(_event, newValue) => setTabValue(newValue)}
-          sx={{ borderBottom: 1, borderColor: 'divider', mb: 2 }}
+          onChange={(_event, newValue) => {
+            setTabValue(newValue)
+          }}
         >
-          <Tab label="Mode Settings" />
           <Tab label="Graph Settings" />
+          <Tab label="Mode Settings" />
         </Tabs>
 
-        {tabValue === 0 ? (
+        {tabValue === 1 ? (
           <>
             <FormControl component="fieldset">
               <RadioGroup
@@ -74,134 +75,21 @@ const SettingsDialog = observer(function ({
                 />
               </RadioGroup>
             </FormControl>
-            {mode === 'server' ? (
-              <div>
-                <div>Server settings:</div>
-                <TextField
-                  label="Path to the simpleGfaServer e.g. http://localhost:9000/"
-                  style={{ minWidth: 500 }}
-                  value={serverRoot}
-                  onChange={event => model.setServerRoot(event.target.value)}
-                />
-                <div>
-                  <Typography variant="h6">What is the GFA server?</Typography>
-                  <div>
-                    It is a server that runs vg commands on pre-configured .vg
-                    graph files. It requires a server side setup to use, please
-                    see{' '}
-                    <a href="https://github.com/cmdcolin/jbrowse-plugin-graphgenomeviewer/">
-                      here
-                    </a>{' '}
-                    for details
-                  </div>
-                  <div>
-                    The alternative way to use this plugin is to run these vg
-                    commands yourself, and open the raw GFA files
-                  </div>
-                </div>
-              </div>
-            ) : null}
+            {mode === 'server' ? <ServerSettings model={model} /> : null}
           </>
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-            <div>
-              <div>
-                <Typography variant="h6">
-                  Number of simulation steps for the links
-                </Typography>
-                <br />
-                <div>
-                  Increases the rigidity of the simulation, higher numbers e.g.
-                  10 makes things much less floppy
-                </div>
-              </div>
-              <div>
-                <Slider
-                  min={1}
-                  max={20}
-                  value={+tmpLinkSteps}
-                  onChange={(_event, val) => {
-                    setTmpLinkSteps(val as number)
-                  }}
-                />
-                Current value: {tmpLinkSteps}
-              </div>
-            </div>
-            <div>
-              <div>
-                <Typography variant="h6">Sequence chunk size</Typography>
-                <br />
-                <div>
-                  If a contig is of length 5000, then chunk length 1000 would
-                  become 5 segments. Note: contigs smaller than the chunk length
-                  may be less proportionally sized (they do not get
-                  spaghettified)
-                </div>
-              </div>
-              <div>
-                <TextField
-                  value={tmpChunkSize}
-                  onChange={event => {
-                    setTmpChunkSize(event.target.value)
-                  }}
-                />
-              </div>
-            </div>
-
-            <div>
-              <div>
-                <Typography variant="h6">Strength (particle charge)</Typography>
-                <br />
-                <div>
-                  Akin to charged particle force, a large negative number
-                  increases the repulsive force
-                </div>
-              </div>
-              <div>
-                <Slider
-                  min={-100}
-                  max={-1}
-                  value={tmpStrengthCenter}
-                  onChange={(_event, val) => {
-                    setTmpStrengthCenter(val as number)
-                  }}
-                />
-                Current value: {tmpStrengthCenter}
-              </div>
-            </div>
-            <div>
-              <div>
-                <Typography variant="h6">Sequence thickness (px)</Typography>
-              </div>
-              <div>
-                <Slider
-                  min={1}
-                  max={20}
-                  value={tmpSequenceThickness}
-                  onChange={(_event, val) => {
-                    setTmpSequenceThickness(val as number)
-                  }}
-                />
-                Current value: {tmpSequenceThickness}px
-              </div>
-            </div>
-            <div>
-              <div>
-                <Typography variant="h6">Link thickness (px)</Typography>
-              </div>
-              <div>
-                <Slider
-                  min={1}
-                  max={20}
-                  value={tmpLinkThickness}
-                  onChange={(_event, val) => {
-                    setTmpLinkThickness(val as number)
-                  }}
-                />
-                Current value: {tmpLinkThickness}px
-              </div>
-            </div>
-          </div>
+          <GraphSettings
+            tmpLinkSteps={tmpLinkSteps}
+            setTmpLinkSteps={setTmpLinkSteps}
+            tmpChunkSize={tmpChunkSize}
+            setTmpChunkSize={setTmpChunkSize}
+            tmpStrengthCenter={tmpStrengthCenter}
+            setTmpStrengthCenter={setTmpStrengthCenter}
+            tmpSequenceThickness={tmpSequenceThickness}
+            setTmpSequenceThickness={setTmpSequenceThickness}
+            tmpLinkThickness={tmpLinkThickness}
+            setTmpLinkThickness={setTmpLinkThickness}
+          />
         )}
       </DialogContent>
       <DialogActions>
